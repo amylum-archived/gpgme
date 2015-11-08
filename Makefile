@@ -37,7 +37,7 @@ deps:
 	curl -sLo $(LIBGPG-ERROR_TAR) $(LIBGPG-ERROR_URL)
 	tar -x -C $(LIBGPG-ERROR_DIR) -f $(LIBGPG-ERROR_TAR)
 
-build: submodule
+build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && ./autogen.sh
