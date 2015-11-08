@@ -5,11 +5,18 @@ BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PATH_FLAGS = --prefix=/usr
+CONF_FLAGS = --enable-maintainer-mode
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 
 PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/gpgme-//')
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
+
+LIBGPG-ERROR_VERSION = 1.20-1
+LIBGPG-ERROR_URL = https://github.com/amylum/libgpg-error/releases/download/$(LIBGPG-ERROR_VERSION)/libgpg-error.tar.gz
+LIBGPG-ERROR_TAR = libgpgerror.tar.gz
+LIBGPG-ERROR_DIR = /tmp/libgpg-error
+LIBGPG-ERROR_PATH = --with-libgpg-error-prefix=$(LIBGPG-ERROR_DIR)/usr
 
 .PHONY : default submodule deps manual container deps build version push local
 
@@ -24,11 +31,17 @@ manual: submodule
 container:
 	./meta/launch
 
+deps:
+	rm -rf $(LIBGPG-ERROR_DIR) $(LIBGPG-ERROR_TAR)
+	mkdir $(LIBGPG-ERROR_DIR)
+	curl -sLo $(LIBGPG-ERROR_TAR) $(LIBGPG-ERROR_URL)
+	tar -x -C $(LIBGPG-ERROR_DIR) -f $(LIBGPG-ERROR_TAR)
+
 build: submodule
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && ./autogen.sh
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBGPG-ERROR_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/COPYING.LESSER $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
