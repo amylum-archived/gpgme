@@ -1,0 +1,32 @@
+item do
+  expected do
+    url_xpath
+    url 'http://git.gnupg.org/cgi-bin/gitweb.cgi?p=gpgme.git;a=tags'
+    xpath '/html/body/table/tr[1]/td[2]/a'
+    regex /^gpgme-([\d.]+)$/
+  end
+
+  actual do
+    git_tag
+    regex /^(.*)-\d+$/
+  end
+
+  deps do
+    %w(libgpg-error libassuan).each do |dep|
+      item do
+        name dep
+
+        expected do
+          github_release
+          repo "amylum/#{dep}"
+        end
+
+        actual do
+          grep
+          file 'Makefile'
+          regex /^#{dep.upcase}_VERSION = ([\d.-]+)$/
+        end
+      end
+    end
+  end
+end
