@@ -1,0 +1,31 @@
+name 'gpgme'
+org 'amylum'
+
+licenses 'COPYING.LESSER'
+
+deps(
+  libassuan: '2.4.3-7',
+  'libgpg-error': '1.24-6'
+)
+
+configure_flags(
+  prefix: '/usr',
+  'enable-maintainer-mode': nil,
+  host: 'x86_64-pc-linux-gnu'
+)
+remove_linker_archives
+
+cflags
+libs
+harden
+
+build do
+  run './autogen.sh'
+  configure
+  make
+  install
+end
+
+test do
+  # TODO: add tests
+end
