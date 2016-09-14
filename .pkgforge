@@ -16,7 +16,7 @@ configure_flags(
 remove_linker_archives
 
 cflags
-libs
+libs %w(gpg-error assuan)
 harden
 
 build do
