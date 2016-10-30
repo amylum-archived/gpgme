@@ -19,6 +19,8 @@ cflags
 libs %w(gpg-error assuan)
 harden
 
+patch 'error_t.patch'
+
 build do
   run './autogen.sh'
   configure

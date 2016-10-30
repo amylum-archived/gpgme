@@ -1,0 +1,19 @@
+diff --git a/configure.ac b/configure.ac
+index 6580b7c..e1e1f94 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -815,14 +815,6 @@ LTLIBOBJS=`echo "$LIB@&t@OBJS" |
+            sed 's,\.[[^.]]* ,.lo ,g;s,\.[[^.]]*$,.lo,'`
+ AC_SUBST(LTLIBOBJS)
+ 
+-# Some checks for gpgme-tool
+-# Done at top: AC_CHECK_HEADER([argp.h])
+-AC_CHECK_TYPES([error_t], [],
+-   [AC_DEFINE([error_t], [int],
+-   [Define to a type to use for `error_t' if it is not otherwise available.])],
+-   [#include <errno.h>])
+-
+-
+ # A substitution to set generated files in a Emacs buffer to read-only.
+ AC_SUBST(emacs_local_vars_begin, [['Local][ ][Variables:']])
+ AC_SUBST(emacs_local_vars_read_only, ['buffer-read-only: t'])
