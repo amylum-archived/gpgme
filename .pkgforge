@@ -4,8 +4,8 @@ org 'amylum'
 licenses 'COPYING.LESSER'
 
 deps(
-  libassuan: '2.4.3-10',
-  'libgpg-error': '1.25-1'
+  libassuan: '2.4.3-11',
+  'libgpg-error': '1.26-1'
 )
 
 configure_flags(
