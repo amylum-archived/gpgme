@@ -4,8 +4,14 @@ org 'amylum'
 licenses 'COPYING.LESSER'
 
 deps(
-  libassuan: '2.4.3-12',
-  'libgpg-error': '1.27-1'
+  libassuan: {
+    version: '2.4.3-12',
+    checksum: '41bdfda2cc5da83d6c77c42212697ad6bc40d444d9e9c1470e7d561bb1f5c249'
+  },
+  'libgpg-error': {
+    version: '1.27-1',
+    checksum: '7ae57f06296bf6ef98fc450f7ef7d1a47753d429c1cdc440045a03ed108d58de'
+  }
 )
 
 configure_flags(
