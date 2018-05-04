@@ -5,12 +5,12 @@ licenses 'COPYING.LESSER'
 
 deps(
   libassuan: {
-    version: '2.5.1-3',
-    checksum: '81b0eeffe6c3422606a72c479392474a9b815558418133c04376c01c1ee6046b'
+    version: '2.5.1-4',
+    checksum: 'd19b9b06a33781b466c46b4e4a63c660cd62f392e7ac64c81879ae3610993280'
   },
   'libgpg-error': {
-    version: '1.29-1',
-    checksum: '34c4ab5446b371eaacb7dd57b24d823a42436c370ce5886db7a5c468892b0da0'
+    version: '1.30-1',
+    checksum: 'b9c60db131776b8c73df89c165150a567e4e52d617e1659b702acc8417bf52c6'
   }
 )
 
