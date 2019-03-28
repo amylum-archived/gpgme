@@ -20,6 +20,7 @@ configure_flags(
   host: 'x86_64-pc-linux-gnu'
 )
 remove_linker_archives
+remove_pkgconfig_files
 
 cflags
 libs %w(gpg-error assuan)
@@ -31,7 +32,9 @@ build do
   run './autogen.sh'
   configure
   make
+  run 'find .libs -name "*.so*" -type f | xargs chrpath -d'
   install
+  run "find .libs -name '*.so*' ! -name '*T' -type f | xargs -n1 -I{} cp {} #{releasedir}/usr/lib"
 end
 
 test do
