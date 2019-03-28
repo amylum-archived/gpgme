@@ -32,9 +32,9 @@ build do
   run './autogen.sh'
   configure
   make
-  run 'find .libs -name "*.so*" -type f | xargs chrpath -d'
+  run 'find src/.libs -name "*.so*" -type f | xargs chrpath -d'
   install
-  run "find .libs -name '*.so*' ! -name '*T' -type f | xargs -n1 -I{} cp {} #{releasedir}/usr/lib"
+  run "find src/.libs -name '*.so*' ! -name '*T' -type f | xargs -n1 -I{} cp {} #{releasedir}/usr/lib"
 end
 
 test do
